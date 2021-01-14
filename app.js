@@ -10,6 +10,64 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const completeTeam = [];
+
+function buildTeam() {
+    console.log("Enter the information about the team Manager");
+
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "Enter the manager's name:",
+            //validate: function(name){}
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Enter the manager's id:",
+            //validate: that it's not empty,
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Enter the manager's email:",
+            //validate: that a valid email and not empty,
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Enter the manager's office number:",
+            //validate: that it's not empty,
+        }
+    ])
+    .then(function (answers) {
+
+    }
+
+}
+
+/* TO DO
+a set of errors in case the basic answers are not given:
+     NOT WORKING WITH UNIT TESTS IN CLASS 
+function validateName(name) {
+    if (!name) {
+        throw new Error("You are missing the name.");
+    }
+}
+function validateId(id) {
+    if (!id) {
+        throw new Error("You are missing the id.");
+    }
+}
+function validateId(email) {
+    if (!email) {
+        throw new Error("You are missing the email.");
+    }
+}
+*/
+
+buildTeam();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
