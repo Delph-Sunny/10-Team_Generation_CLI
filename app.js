@@ -175,11 +175,16 @@ function validateName(input) {
 }
 */
 
+// Function to create and fill html result page
+function generateFile(completeTeam) {
+    fs.writeFileSync(outputPath, render(completeTeam), "utf-8");
+}
 
 async function buildTeam() {
     console.log("Enter the information about the team Manager:");
     console.log("");   // Add line in Terminal display
-    await inquirer.prompt(managerQuestions)
+    await inquirer
+    .prompt(managerQuestions)
         .then(function (answers) {
             var manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
             completeTeam.push(manager);
@@ -187,14 +192,16 @@ async function buildTeam() {
         .catch(err => console.log(err));
 
     do {
-        await inquirer.prompt(addEmployee)
+        await inquirer
+        .prompt(addEmployee)
             .then(function (answers) {
                 moreMember = answers.confirmation;
                 console.log("");
             })
             .catch(err => console.log(err));
         if (moreMember) {
-            await inquirer.prompt(employeeQuestions)
+            await inquirer
+                .prompt(employeeQuestions)
                 .then(function (answers) {
                     if (answers.role === "Engineer") {
                         var engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
@@ -208,32 +215,16 @@ async function buildTeam() {
                 .catch(err => console.log(err));
         }
     } while (moreMember === true);
-    console.log(completeTeam);    //FOR TESTING 
+    generateFile(completeTeam)
 }
 
-
-async function generateFile() { 
-    await fs.writeFileSync(outputPath, render(completeTeam),"utf-8")
-}
-
-// Calling the function to build the team and generate the html file
+// Calling the function to build the team
 buildTeam();
-generateFile();
 
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
+// TO DO: you may need to check if the `output` folder exists and create it if it
 // does not.
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
 
 
 
