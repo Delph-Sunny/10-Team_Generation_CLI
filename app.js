@@ -104,7 +104,7 @@ const employeeQuestions = [
     {
         type: "input",
         name: "email",
-        message: "Enter the manager's email:",
+        message: "Enter the employee's email:",
         validate: (value) => {
             let isValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
             if (isValid) {
@@ -177,11 +177,11 @@ function validateName(input) {
 
 
 async function buildTeam() {
-    console.log("Enter the information about the team Manager:/n");
+    console.log("Enter the information about the team Manager:");
+    console.log("");   // Add line in Terminal display
     await inquirer.prompt(managerQuestions)
         .then(function (answers) {
             var manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-            console.log(manager);    //FOR TESTING
             completeTeam.push(manager);
         })
         .catch(err => console.log(err));
@@ -190,7 +190,7 @@ async function buildTeam() {
         await inquirer.prompt(addEmployee)
             .then(function (answers) {
                 moreMember = answers.confirmation;
-                console.log(moreMember);    //FOR TESTING
+                console.log("");
             })
             .catch(err => console.log(err));
         if (moreMember) {
@@ -208,10 +208,17 @@ async function buildTeam() {
                 .catch(err => console.log(err));
         }
     } while (moreMember === true);
+    console.log(completeTeam);    //FOR TESTING 
 }
 
+
+async function generateFile() { 
+    await fs.writeFileSync(outputPath, render(completeTeam),"utf-8")
+}
+
+// Calling the function to build the team and generate the html file
 buildTeam();
-console.log(completeTeam);    //FOR TESTING 
+generateFile();
 
 
 // After the user has input all employees desired, call the `render` function (required
@@ -230,6 +237,3 @@ console.log(completeTeam);    //FOR TESTING
 
 
 
-/*function generateFile() {
-    fs.writeFileSync(outputPath, render(completeTeam),"utf-8")
-}*/
