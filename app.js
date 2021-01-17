@@ -10,67 +10,209 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+/********* Questions Lists *********/
+const managerQuestions = [
+    {
+        type: "input",
+        name: "name",
+        message: "Enter the manager's name:",
+        validate: (value) => {
+            let isValid = value.match(/^[a-z]+$/i);
+            if (isValid) {
+                return true;
+            }
+            return "Name missing or invalid! (not numbers or symbols)";
+        }
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Enter the manager's 3 digits id:",
+        validate: (value) => {
+            let isValid = value.match(/^[0-9]{3}$/);
+            if (isValid) {
+                return true;
+            }
+            return "ID number missing or invalid! (No letters or symbols)";
+        }
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Enter the manager's email:",
+        validate: (value) => {
+            let isValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+            if (isValid) {
+                return true;
+            }
+            return "ID number missing or invalid! (No letters or symbols)"
+        }
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "Enter the manager's office number:",
+        validate: (value) => {
+            let isValid = value.match(/^[0-9]+$/);
+            if (isValid) {
+                return true;
+            }
+            return "Office number missing or invalid! (No letters or symbols)";
+        }
+    }
+];
+
+const addEmployee = [
+    {
+        type: "confirm",
+        name: "confirmation",
+        message: "Do you want to add another team member?"
+    }
+];
+
+const employeeQuestions = [
+    {
+        type: "list",
+        name: "role",
+        message: "Choose the employee's role:",
+        choices: ["Engineer", "Intern"]
+    },
+    {
+        type: "input",
+        name: "name",
+        message: "Enter the employee's name:",
+        validate: (value) => {
+            let isValid = value.match(/^[a-z]+$/i);
+            if (isValid) {
+                return true;
+            }
+            return "Name missing or invalid! (not numbers or symbols)";
+        }
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Enter the employee's id:",
+        validate: (value) => {
+            let isValid = value.match(/^[0-9]+$/);
+            if (isValid) {
+                return true;
+            }
+            return "ID number missing or invalid! (No letters or symbols)";
+        }
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Enter the manager's email:",
+        validate: (value) => {
+            let isValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+            if (isValid) {
+                return true;
+            }
+            return "ID number missing or invalid! (No letters or symbols)"
+        }
+    },
+    {
+        when: (answers) => {
+            if (answers.role === "Engineer") {
+                return true;
+            }
+        },
+        type: "input",
+        name: "github",
+        message: "Enter the employee's github:",
+        validate: (value) => {
+            let isValid = (/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i).test(value);
+            if (isValid) {
+                return true;
+            }
+            return "Github missing or invalid!";
+        }
+    },
+    {
+        when: (answers) => {
+            if (answers.role === "Intern") {
+                return true;
+            }
+        },
+        type: "input",
+        name: "school",
+        message: "Enter the intern's school:",
+        validate: (value) => {
+            let isValid = value.match(/[a-z]+/i);
+            if (isValid) {
+                return true;
+            }
+            return "School missing or invalid!";
+        }
+    }
+];
+
+/****** End of Questions Lists ******/
+
 const completeTeam = [];
 
-function buildTeam() {
-    console.log("Enter the information about the team Manager");
+var moreMember = true;  // Boolean use to add more team members
 
-    inquirer.prompt([
-        {
-            type: "input",
-            name: "name",
-            message: "Enter the manager's name:",
-            //validate: function(name){}
-        },
-        {
-            type: "input",
-            name: "id",
-            message: "Enter the manager's id:",
-            //validate: that it's not empty,
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "Enter the manager's email:",
-            //validate: that a valid email and not empty,
-        },
-        {
-            type: "input",
-            name: "officeNumber",
-            message: "Enter the manager's office number:",
-            //validate: that it's not empty,
+
+/* NOT WORKING
+function validateName(input) {
+    const re = /[a-z]/;
+    // Declare function as asynchronous, and save the done callback
+    var done = this.async();
+    const isValid = re.test(input.trim())
+    // Do async part
+    setTimeout(function () {
+        if (!isValid) {
+            // Pass the return value in the done callback
+            done("Name missing or format invalid! Use only letters (A-Z).");
+            return;
         }
-    ])
-    .then(function (answers) {
-
-    }
-
-}
-
-/* TO DO
-a set of errors in case the basic answers are not given:
-     NOT WORKING WITH UNIT TESTS IN CLASS 
-function validateName(name) {
-    if (!name) {
-        throw new Error("You are missing the name.");
-    }
-}
-function validateId(id) {
-    if (!id) {
-        throw new Error("You are missing the id.");
-    }
-}
-function validateId(email) {
-    if (!email) {
-        throw new Error("You are missing the email.");
-    }
+        // Pass the return value in the done callback
+        done(process.exit(0));
+    }, 1000);
 }
 */
 
-buildTeam();
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+async function buildTeam() {
+    console.log("Enter the information about the team Manager:/n");
+    await inquirer.prompt(managerQuestions)
+        .then(function (answers) {
+            var manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+            console.log(manager);    //FOR TESTING
+            completeTeam.push(manager);
+        })
+        .catch(err => console.log(err));
+
+    do {
+        await inquirer.prompt(addEmployee)
+            .then(function (answers) {
+                moreMember = answers.confirmation;
+                console.log(moreMember);    //FOR TESTING
+            })
+            .catch(err => console.log(err));
+        if (moreMember) {
+            await inquirer.prompt(employeeQuestions)
+                .then(function (answers) {
+                    if (answers.role === "Engineer") {
+                        var engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+                        completeTeam.push(engineer);
+                    }
+                    if (answers.role === "Intern") {
+                        var intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+                        completeTeam.push(intern);
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+    } while (moreMember === true);
+}
+
+buildTeam();
+console.log(completeTeam);    //FOR TESTING 
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -86,8 +228,8 @@ buildTeam();
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
 
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+
+
+/*function generateFile() {
+    fs.writeFileSync(outputPath, render(completeTeam),"utf-8")
+}*/
