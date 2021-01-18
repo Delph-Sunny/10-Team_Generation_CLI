@@ -5,28 +5,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Icon website -->
+    <link rel="icon" type="image/png" href="../images/leadership.png" sizes="16x16">
     <title>My Team</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/c502137733.js"></script>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 jumbotron mb-3 team-heading">
-                <h1 class="text-center">My Team</h1>
+            <div class="col-12 jumbotron bg-light mb-3 team-heading">
+                <h1 class="text-center">Team 21 - Localization</h1>
             </div>
         </div>
     </div>
-    <div class="container">
+    <main class="container">
         <div class="row">
             <div class="team-area col-12 d-flex justify-content-center">
                 {{ team }}
             </div>
         </div>
-    </div>
+    </main>
+    <footer class="footer text-center bg-light mt-2 p-2">
+        <div class="container">
+            <span class="p-2">
+                File generated with <a href="https://github.com/Delph-Sunny/10-Team_Generator_CLI">Team
+                    Generator</a> and a lot of <i class="fas fa-fire"></i> .
+            </span>
+        </div>
+    </footer>
 </body>
 
 </html>
