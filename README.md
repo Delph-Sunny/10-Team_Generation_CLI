@@ -1,16 +1,11 @@
 # 10-Team_Generation_CLI
 
-
-:construction:   IN PROGRESS  :construction:  
-
-
----
-
  <a href="https://img.shields.io/badge/node-v12.19.0-orange?style=plastic"><img alt="Node.js use" src="https://img.shields.io/badge/node-v12.19.0-orange?style=plastic"/></a>
  <a href="https://img.shields.io/badge/npm-Inquirer-red?style=plastic"><img alt="npm package Inquirer" src="https://img.shields.io/badge/npm-Inquirer-red?style=plastic" /></a> 
 <a href="https://img.shields.io/badge/js%20Library-Jest-blue?style=plastic"><img alt="JavaScript library" src="https://img.shields.io/badge/js%20Library-Jest-blue?style=plastic"/></a>
  <a href="https://img.shields.io/badge/License-MIT-brightgreen?style=plastic"><img alt="M.I.T. License use" src="https://img.shields.io/badge/License-MIT-brightgreen?style=plastic"/></a>  
 
+---
 
 ## Description
 This app will generate a software engineering team from a user's inputs using the [Inquirer package](https://www.npmjs.com/package/inquirer).  
@@ -69,7 +64,7 @@ THEN the application will create an HTML file that displays a nicely formatted t
 
 
 - A generated html file:  
-![Team-Generator3](./images/snippet3.PNG) 
+![Team-Generator3](./images/snippet3.gif) 
 
 ## Credits
  
