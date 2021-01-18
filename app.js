@@ -11,17 +11,17 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 /********* Questions Lists *********/
-const managerQuestions = [
+const managerQuestions = [  // First set of questions: for manager
     {
         type: "input",
         name: "name",
         message: "Enter the manager's name:",
         validate: (value) => {
-            let isValid = value.match(/^[a-z]+$/i);
+            let isValid = value.match(/^[a-z\s\-]+$/i);
             if (isValid) {
                 return true;
             }
-            return "Name missing or invalid! (not numbers or symbols)";
+            return "Name missing or invalid! (No numbers or symbols allowed except for dashes)";
         }
     },
     {
@@ -33,7 +33,7 @@ const managerQuestions = [
             if (isValid) {
                 return true;
             }
-            return "ID number missing or invalid! (No letters or symbols)";
+            return "ID number missing or invalid! (No letters or symbols allowed)";
         }
     },
     {
@@ -41,11 +41,11 @@ const managerQuestions = [
         name: "email",
         message: "Enter the manager's email:",
         validate: (value) => {
-            let isValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+            let isValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);  // Used different method than match
             if (isValid) {
                 return true;
             }
-            return "ID number missing or invalid! (No letters or symbols)"
+            return "Email missing or invalid!"
         }
     },
     {
@@ -53,16 +53,16 @@ const managerQuestions = [
         name: "officeNumber",
         message: "Enter the manager's office number:",
         validate: (value) => {
-            let isValid = value.match(/^[0-9]+$/);
+            let isValid = value.match(/^[0-9]{1,4}$/);
             if (isValid) {
                 return true;
             }
-            return "Office number missing or invalid! (No letters or symbols)";
+            return "Office number missing or invalid! (4 number max. No letters or symbols allowed)";
         }
     }
 ];
 
-const addEmployee = [
+const addEmployee = [       // Question to add or not more employees
     {
         type: "confirm",
         name: "confirmation",
@@ -70,7 +70,7 @@ const addEmployee = [
     }
 ];
 
-const employeeQuestions = [
+const employeeQuestions = [     //Last set of question: for employees
     {
         type: "list",
         name: "role",
@@ -82,19 +82,19 @@ const employeeQuestions = [
         name: "name",
         message: "Enter the employee's name:",
         validate: (value) => {
-            let isValid = value.match(/^[a-z]+$/i);
+            let isValid = value.match(/^[a-z\s\-]+$/i);
             if (isValid) {
                 return true;
             }
-            return "Name missing or invalid! (not numbers or symbols)";
+            return "Name missing or invalid! (No numbers or symbols allowed except for dashes)";
         }
     },
     {
         type: "input",
         name: "id",
-        message: "Enter the employee's id:",
+        message: "Enter the employee's 3 digits id:",
         validate: (value) => {
-            let isValid = value.match(/^[0-9]+$/);
+            let isValid = value.match(/^[0-9]{3}$/);
             if (isValid) {
                 return true;
             }
@@ -110,11 +110,11 @@ const employeeQuestions = [
             if (isValid) {
                 return true;
             }
-            return "ID number missing or invalid! (No letters or symbols)"
+            return "Email missing or invalid!"
         }
     },
     {
-        when: (answers) => {
+        when: (answers) => {                     // value to match in order to display the question
             if (answers.role === "Engineer") {
                 return true;
             }
@@ -127,11 +127,11 @@ const employeeQuestions = [
             if (isValid) {
                 return true;
             }
-            return "Github missing or invalid!";
+            return "Github invalid!";
         }
     },
     {
-        when: (answers) => {
+        when: (answers) => {                    // value to match in order to display the question
             if (answers.role === "Intern") {
                 return true;
             }
@@ -140,11 +140,11 @@ const employeeQuestions = [
         name: "school",
         message: "Enter the intern's school:",
         validate: (value) => {
-            let isValid = value.match(/[a-z]+/i);
+            let isValid = value.match(/^[a-z\d-\s]+$/i);
             if (isValid) {
                 return true;
             }
-            return "School missing or invalid!";
+            return "School missing or invalid! (No symbols allowed except for dashes)";
         }
     }
 ];
@@ -156,27 +156,9 @@ const completeTeam = [];
 var moreMember = true;  // Boolean use to add more team members
 
 
-/* NOT WORKING
-function validateName(input) {
-    const re = /[a-z]/;
-    // Declare function as asynchronous, and save the done callback
-    var done = this.async();
-    const isValid = re.test(input.trim())
-    // Do async part
-    setTimeout(function () {
-        if (!isValid) {
-            // Pass the return value in the done callback
-            done("Name missing or format invalid! Use only letters (A-Z).");
-            return;
-        }
-        // Pass the return value in the done callback
-        done(process.exit(0));
-    }, 1000);
-}
-*/
-
 // Function to create and fill html result page
 function generateFile(completeTeam) {
+    // TO DO: you may need to check if the `output` folder exists and create it if it does not.
     fs.writeFileSync(outputPath, render(completeTeam), "utf-8");
 }
 
@@ -184,16 +166,16 @@ async function buildTeam() {
     console.log("Enter the information about the team Manager:");
     console.log("");   // Add line in Terminal display
     await inquirer
-    .prompt(managerQuestions)
+        .prompt(managerQuestions)
         .then(function (answers) {
             var manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-            completeTeam.push(manager);
+            completeTeam.push(manager);     // Add Manager object into array
         })
         .catch(err => console.log(err));
-
+// Do while Loops to add employee until conditon false is met
     do {
         await inquirer
-        .prompt(addEmployee)
+            .prompt(addEmployee)
             .then(function (answers) {
                 moreMember = answers.confirmation;
                 console.log("");
@@ -205,25 +187,24 @@ async function buildTeam() {
                 .then(function (answers) {
                     if (answers.role === "Engineer") {
                         var engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-                        completeTeam.push(engineer);
+                        completeTeam.push(engineer);    // Add Engineer object into array
                     }
                     if (answers.role === "Intern") {
                         var intern = new Intern(answers.name, answers.id, answers.email, answers.school);
-                        completeTeam.push(intern);
+                        completeTeam.push(intern);      // Add Intern object into array
                     }
                 })
                 .catch(err => console.log(err));
         }
     } while (moreMember === true);
-    generateFile(completeTeam)
+    generateFile(completeTeam)    // Call function to generate html file
 }
 
-// Calling the function to build the team
+// Call function to build the team
 buildTeam();
 
 
-// TO DO: you may need to check if the `output` folder exists and create it if it
-// does not.
+
 
 
 

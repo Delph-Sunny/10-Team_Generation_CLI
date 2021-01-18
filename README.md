@@ -1,16 +1,11 @@
 # 10-Team_Generation_CLI
 
-
-:construction:   IN PROGRESS  :construction:  
-
-
----
-
  <a href="https://img.shields.io/badge/node-v12.19.0-orange?style=plastic"><img alt="Node.js use" src="https://img.shields.io/badge/node-v12.19.0-orange?style=plastic"/></a>
  <a href="https://img.shields.io/badge/npm-Inquirer-red?style=plastic"><img alt="npm package Inquirer" src="https://img.shields.io/badge/npm-Inquirer-red?style=plastic" /></a> 
 <a href="https://img.shields.io/badge/js%20Library-Jest-blue?style=plastic"><img alt="JavaScript library" src="https://img.shields.io/badge/js%20Library-Jest-blue?style=plastic"/></a>
  <a href="https://img.shields.io/badge/License-MIT-brightgreen?style=plastic"><img alt="M.I.T. License use" src="https://img.shields.io/badge/License-MIT-brightgreen?style=plastic"/></a>  
 
+---
 
 ## Description
 This app will generate a software engineering team from a user's inputs using the [Inquirer package](https://www.npmjs.com/package/inquirer).  
@@ -40,6 +35,7 @@ THEN the application will create an HTML file that displays a nicely formatted t
 
 * [Installation and Usage](#Installation-and-Usage)  
 * [Images of the app](#Images-of-the-app-) 
+* [Credits](#Credits)  
 * [License](#License)  
 * [Contact](#Contact) 
 
@@ -55,10 +51,26 @@ THEN the application will create an HTML file that displays a nicely formatted t
 ###### Note: Node.js installation is required before using this app.  
 
 
-## Images of the app :mag:  
+## Images of the app :mag: 
 
+- Running the app:  
 ![Team-Generator1](./images/snippet1.PNG)  
-![Team-Generator2](./images/snippet2.PNG) 
+
+  
+
+- Running the Unit Tests:  
+![Team-Generator2](./images/snippet2.gif)  
+
+
+
+- A generated html file:  
+![Team-Generator3](./images/snippet3.gif) 
+
+## Credits
+ 
+Icons made by Freepik from [www.flaticon.com](https://www.flaticon.com/)  
+Background image by Nastuh Abootalebi from [www.unsplash.com](https://www.unsplash.com/)  
+Code base prior to modification from Trilogy Education Services.
 
 
 ## License  
