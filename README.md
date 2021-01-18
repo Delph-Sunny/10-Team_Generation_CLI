@@ -40,6 +40,7 @@ THEN the application will create an HTML file that displays a nicely formatted t
 
 * [Installation and Usage](#Installation-and-Usage)  
 * [Images of the app](#Images-of-the-app-) 
+* [Credits](#Credits)  
 * [License](#License)  
 * [Contact](#Contact) 
 
@@ -55,10 +56,26 @@ THEN the application will create an HTML file that displays a nicely formatted t
 ###### Note: Node.js installation is required before using this app.  
 
 
-## Images of the app :mag:  
+## Images of the app :mag: 
 
+- Running the app:  
 ![Team-Generator1](./images/snippet1.PNG)  
-![Team-Generator2](./images/snippet2.PNG) 
+
+  
+
+- Running the Unit Tests:  
+![Team-Generator2](./images/snippet2.gif)  
+
+
+
+- A generated html file:  
+![Team-Generator3](./images/snippet3.PNG) 
+
+## Credits
+ 
+Icons made by Freepik from [www.flaticon.com](https://www.flaticon.com/)  
+Background image by Nastuh Abootalebi from [www.unsplash.com](https://www.unsplash.com/)  
+Code base prior to modification from Trilogy Education Services.
 
 
 ## License  
