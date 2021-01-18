@@ -54,7 +54,7 @@ THEN the application will create an HTML file that displays a nicely formatted t
 ## Images of the app :mag: 
 
 - Running the app:  
-![Team-Generator1](./images/snippet1.PNG)  
+![Team-Generator1](./images/snippet1.gif) 
 
   
 
@@ -63,8 +63,8 @@ THEN the application will create an HTML file that displays a nicely formatted t
 
 
 
-- A generated html file:  
-![Team-Generator3](./images/snippet3.gif) 
+- A resulting [generated html file](https://delph-sunny.github.io/10-Team_Generator_CLI/output/team.html):  
+![Team-Generator3](./images/snippet3.PNG) 
 
 ## Credits
  
