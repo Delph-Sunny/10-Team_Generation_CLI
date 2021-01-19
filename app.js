@@ -149,19 +149,48 @@ const employeeQuestions = [     //Last set of question: for employees
     }
 ];
 
+const overWrite = [       // Question to overwrite existing file
+    {
+        type: "confirm",
+        name: "overwrite",
+        message: "A team.html file already exists. Do you want to overwrite it?"
+    }
+];
+
 /****** End of Questions Lists ******/
 
 const completeTeam = [];
 
 var moreMember = true;  // Boolean use to add more team members
-
+var newFile = false;    // Boolean use to overwrite existing file
 
 // Function to create and fill html result page
-function generateFile(completeTeam) {
-    // TO DO: you may need to check if the `output` folder exists and create it if it does not.
-    fs.writeFileSync(outputPath, render(completeTeam), "utf-8");
+async function generateFile(completeTeam) {
+    if (!fs.existsSync(OUTPUT_DIR)) {       // Check if the folder already exists and add if missing
+        fs.mkdir("output", { recursive: true }, (err) => {
+            if (err) throw err;
+        });
+        newFile = true;
+    } else if (!fs.existsSync(outputPath)) {        // Check if the file already exists
+        newFile = true;
+    } else {
+        await inquirer
+            .prompt(overWrite)
+            .then(function (answers) {
+                newFile = answers.overwrite;
+            })
+            .catch(err => console.log(err));
+    }
+    // Create, overwrite or not depending on previous answers
+    if (newFile) {
+        fs.writeFileSync(outputPath, render(completeTeam), "utf-8");
+        console.log(`A new team roster file has been generate under: ${outputPath}`)
+    } else {
+        console.log(`The file was not overwritten.`)
+    };
 }
 
+// Function to populate data for team
 async function buildTeam() {
     console.log("Enter the information about the team Manager:");
     console.log("");   // Add line in Terminal display
@@ -172,7 +201,7 @@ async function buildTeam() {
             completeTeam.push(manager);     // Add Manager object into array
         })
         .catch(err => console.log(err));
-// Do while Loops to add employee until conditon false is met
+    // Do while Loops to add employee until conditon false is met
     do {
         await inquirer
             .prompt(addEmployee)
