@@ -8,7 +8,7 @@
 ---
 
 ## Description
-This app will generate a software engineering team from a user's inputs using the [Inquirer package](https://www.npmjs.com/package/inquirer).  
+This app will generate a software engineering team from a user's inputs using the [Inquirer package](https://www.npmjs.com/package/inquirer). The team roster has one manager and several employees. 
 
 :information_source:  
 

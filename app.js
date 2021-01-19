@@ -180,13 +180,13 @@ async function generateFile(completeTeam) {
                 newFile = answers.overwrite;
             })
             .catch(err => console.log(err));
-    }
+    };
     // Create, overwrite or not depending from previous answers
     if (newFile) {
         fs.writeFileSync(outputPath, render(completeTeam), "utf-8");
-        console.log(`A new team roster file has been generate under: ${outputPath}`)
+        console.log(`A new team roster file has been generate under: ${outputPath}`);
     } else {
-        console.log(`The file was not overwritten.`)
+        console.log("The existing file was not overwritten.");
     };
 }
 
