@@ -181,7 +181,7 @@ async function generateFile(completeTeam) {
             })
             .catch(err => console.log(err));
     }
-    // Create, overwrite or not depending on previous answers
+    // Create, overwrite or not depending from previous answers
     if (newFile) {
         fs.writeFileSync(outputPath, render(completeTeam), "utf-8");
         console.log(`A new team roster file has been generate under: ${outputPath}`)
