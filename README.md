@@ -66,6 +66,8 @@ THEN the application will create an HTML file that displays a nicely formatted t
 - A resulting [generated html file](https://delph-sunny.github.io/10-Team_Generator_CLI/output/team.html):  
 ![Team-Generator3](./images/snippet3.PNG) 
 
+:movie_camera: The full movie showing the functionality of the application can be found [here](https://drive.google.com/file/d/1SqXrxeWPc20PibPimWQBmNT7df8yMfol/view). 
+
 ## Credits
  
 Icons made by Freepik from [www.flaticon.com](https://www.flaticon.com/)  
